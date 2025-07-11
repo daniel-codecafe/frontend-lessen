@@ -1,0 +1,30 @@
+/* body {
+    background-color: black;
+    color: white;
+} */
+
+h1 {
+    font-family: sans-serif;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-yellow {
+    color: yellow;
+}
+
+img:hover {
+    border-color: red;
+    border-style: solid;
+    border-width: 10px;
+    border: 10px solid red;
+    border-radius: 10px;
+
+    opacity: 0.5;
+}
+
+li:nth-child(2) {
+    color: green;
+}
