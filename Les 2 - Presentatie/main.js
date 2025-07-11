@@ -7,52 +7,35 @@
 //     elDogImage.src = data.url;
 // }
 
-//////////////////////////
-//////////////////////////
-//////////////////////////
 
+///////////////////
+
+// Haal de HTML elementen op (worden DOM objecten).
 const elPokemonButton = document.querySelector("#pokemon-button");
-const elPokemonInput = document.querySelector("#pokemon-input");
 const elPokemonImage = document.querySelector("#pokemon-image");
 const elPokemonName = document.querySelector("#pokemon-name");
 
-const revealPokemon = async (data) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            elPokemonImage.classList = "";
-            elPokemonName.textContent = data.name;
-            resolve();
-        }, 3000);
-    });
-}
-
-elPokemonInput.onkeyup = async function (e) {
-    // Op het moment dat er enter wordt gedrukt...
-    if (e.key === 'Enter' || e.keyCode === 13) {
-        debugger;
-        elPokemonImage.classList = "hidden";
-        elPokemonImage.src = "";
-        elPokemonName.textContent = "";
-        // const randomId = Math.floor(Math.random() * 1000) + 1;
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + this.value);
-        const data = await response.json();
-        console.log(data);
-        elPokemonImage.src = data.sprites.other["official-artwork"].front_default;
-        await revealPokemon(data);
-        document.querySelector("#tekst").textContent = "Tadaaa!";
-    }
-};
-
-
+// Op het moment dat er op de knop wordt geklikt.
 elPokemonButton.onclick = async () => {
+    // Reset the velden
     elPokemonImage.classList = "hidden";
     elPokemonImage.src = "";
     elPokemonName.textContent = "";
+
+    // Krijg een random getal tussen 1 en 1000
     const randomId = Math.floor(Math.random() * 1000) + 1;
+
+    // Dit zijn de regels waar het allemaal om draait.
+    // We doen een request naar de PokeAPI om data van een pokémon op te halen.
     const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + randomId);
+    // Deze response zetten we om naar een JSON, het formaat dat de API gebruikt.
     const data = await response.json();
     console.log(data);
+
     elPokemonImage.src = data.sprites.other["official-artwork"].front_default;
-    await revealPokemon(data);
-    document.querySelector("#tekst").textContent = "Tadaaa!";
+
+    setTimeout(function () {
+        elPokemonImage.classList = "";
+        elPokemonName.textContent = data.name;
+    }, 3000);
 }
